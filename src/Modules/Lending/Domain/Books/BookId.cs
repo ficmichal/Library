@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Library.BuildingBlocks.Domain;
+using System;
+using System.Collections.Generic;
 
 namespace Library.Modules.Lending.Domain.Books
 {
-    public class BookId
+    public class BookId : ValueObject
     {
         public BookId(Guid id)
         {
@@ -10,5 +12,10 @@ namespace Library.Modules.Lending.Domain.Books
         }
 
         public Guid Id { get; }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Id;
+        }
     }
 }
