@@ -10,6 +10,8 @@ namespace Library.Modules.Lending.Domain.Patrons.Events
 
         Guid PatronIdValue { get; }
 
+        Guid IDomainEvent.AggregateId => PatronIdValue;
+
         List<IDomainEvent> Normalize() => new() {this};
     }
 }
