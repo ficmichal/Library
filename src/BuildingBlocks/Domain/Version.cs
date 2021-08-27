@@ -1,6 +1,8 @@
-﻿namespace Library.BuildingBlocks.Domain
+﻿using System.Collections.Generic;
+
+namespace Library.BuildingBlocks.Domain
 {
-    public class Version
+    public class Version : ValueObject
     {
         public int Value { get; }
 
@@ -12,6 +14,11 @@
         private Version(int version)
         {
             Value = version;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
         }
     }
 }
