@@ -1,5 +1,7 @@
 ﻿using Library.BuildingBlocks.Domain;
 using Library.Modules.Lending.Domain.LibraryBranch;
+using Library.Modules.Lending.Domain.Patrons;
+using Library.Modules.Lending.Domain.Patrons.Events;
 using System.Collections.Generic;
 using Version = Library.BuildingBlocks.Domain.Version;
 
@@ -30,6 +32,17 @@ namespace Library.Modules.Lending.Domain.Books.Types
         public bool IsRestricted()
         {
             return Information.Type.Equals(BookType.Restricted);
+        }
+
+        public BookOnHold Handle(BookPlacedOnHold bookPlacedOnHold)
+        {
+            return new(
+                Id,
+                Type,
+                new LibraryBranchId(bookPlacedOnHold.LibraryBranchId),
+                new PatronId(bookPlacedOnHold.PatronIdValue),
+                bookPlacedOnHold.HoldTill,
+                Version);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

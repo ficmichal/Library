@@ -9,7 +9,7 @@ namespace Library.Modules.Lending.Domain.Books.Types
 {
     public class BookOnHold : ValueObject, IBook
     {
-        public BookOnHold(BookId id, BookType type, LibraryBranchId holdPlacedAt, PatronId byPatron, DateTime holdTill, Version version)
+        public BookOnHold(BookId id, BookType type, LibraryBranchId holdPlacedAt, PatronId byPatron, DateTime? holdTill, Version version)
         {
             Id = id;
             Type = type;
@@ -30,7 +30,7 @@ namespace Library.Modules.Lending.Domain.Books.Types
 
         public PatronId ByPatron { get; }
 
-        public DateTime HoldTill { get; }
+        public DateTime? HoldTill { get; }
 
         public Version Version { get; }
 
