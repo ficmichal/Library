@@ -11,6 +11,11 @@ namespace Library.BuildingBlocks.Domain
             return new(0);
         }
 
+        public static Version Of(int version)
+        {
+            return new(version);
+        }
+
         private Version(int version)
         {
             Value = version;
