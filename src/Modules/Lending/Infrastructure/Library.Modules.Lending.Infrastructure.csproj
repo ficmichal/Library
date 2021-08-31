@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.90" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Library.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\Domain\Library.Modules.Lending.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
