@@ -38,6 +38,20 @@ namespace Library.Modules.Lending.Infrastructure.UnitTests.Patrons
             entity.BooksOnHold.First().Till.Should().Be(HoldFrom.AddDays(1));
         }
 
+        [Fact]
+        public void should_add_hold_on_placedOnHold_event_with_openEnded_duration()
+        {
+            // Given
+            var entity = CreatePatron();
+
+            // When
+            entity.Handle(PlacedOnHold(OpenEnded()));
+
+            // Then
+            entity.BooksOnHold.Count.Should().Be(1);
+            entity.BooksOnHold.First().Till.Should().BeNull();
+        }
+
         private PatronDatabaseEntity CreatePatron()
         {
             return new()
@@ -47,7 +61,7 @@ namespace Library.Modules.Lending.Infrastructure.UnitTests.Patrons
             };
         }
 
-        private BookPlacedOnHoldEvents PlacedOnHold(HoldDuration duration)
+        private static BookPlacedOnHoldEvents PlacedOnHold(HoldDuration duration)
         {
             return BookPlacedOnHoldEvents.Events(
                 BookPlacedOnHold.BookPlacedOnHoldNow(
