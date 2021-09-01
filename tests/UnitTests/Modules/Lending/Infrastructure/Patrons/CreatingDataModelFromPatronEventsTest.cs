@@ -25,7 +25,7 @@ namespace Library.Modules.Lending.Infrastructure.UnitTests.Patrons
         private static readonly DateTime HoldFrom = DateTime.Now;
 
         [Fact]
-        public void ShouldAddHoldOnPlacedOnHoldEventWithCloseEndedDuration()
+        public void should_add_hold_on_placedOnHold_event_with_closeEnded_duration()
         {
             // Given
             var entity = CreatePatron();
