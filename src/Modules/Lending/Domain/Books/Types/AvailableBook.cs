@@ -1,7 +1,7 @@
 ﻿using Library.BuildingBlocks.Domain;
 using Library.Modules.Lending.Domain.LibraryBranch;
 using Library.Modules.Lending.Domain.Patrons;
-using Library.Modules.Lending.Domain.Patrons.Events;
+using Library.Modules.Lending.Domain.Patrons.DomainEvents;
 using System.Collections.Generic;
 using Version = Library.BuildingBlocks.Domain.Version;
 
