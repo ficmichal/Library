@@ -34,7 +34,7 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
         {
             var patron = await HandleNextEvent(@event);
 
-            _domainEvents.Publish(@event.Normalize());
+            await _domainEvents.Publish(@event.Normalize());
 
             return patron;
         }
