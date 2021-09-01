@@ -10,13 +10,15 @@ namespace Library.Modules.Lending.Domain.Patrons
 {
     public class Patron : ValueObject
     {
-        public Patron(PatronInformation patronInformation)
+        public Patron(PatronInformation patronInformation, PatronHolds patronHolds)
         {
             PatronInformation = patronInformation;
+            PatronHolds = patronHolds;
         }
 
         public PatronInformation PatronInformation { get; }
 
+        public PatronHolds PatronHolds { get; }
 
         public IPatronEvent PlaceOnHold(AvailableBook book)
         {
