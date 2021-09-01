@@ -1,63 +1,56 @@
-﻿using Dapper;
-using Library.BuildingBlocks.Domain.Events;
-using Library.BuildingBlocks.Infrastructure.Data;
+﻿using Library.BuildingBlocks.Domain.Events;
 using Library.Modules.Lending.Domain.Patrons;
 using Library.Modules.Lending.Domain.Patrons.DomainEvents;
-using Library.Modules.Lending.Infrastructure.Books;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using static Library.Modules.Lending.Infrastructure.Patrons.DomainModelMapper;
 
 namespace Library.Modules.Lending.Infrastructure.Patrons
 {
     public class PatronsDatabaseRepository : IPatronRepository
     {
-        private readonly ISqlConnectionFactory _sqlConnectionFactory;
+        private readonly PatronsDbContext _patronsDbContext;
         private readonly IDomainEvents _domainEvents;
 
-        public PatronsDatabaseRepository(ISqlConnectionFactory sqlConnectionFactory, IDomainEvents domainEvents)
+        public PatronsDatabaseRepository(PatronsDbContext patronsDbContext, IDomainEvents domainEvents)
         {
-            _sqlConnectionFactory = sqlConnectionFactory;
+            _patronsDbContext = patronsDbContext;
             _domainEvents = domainEvents;
         }
 
-        public Patron FindBy(PatronId patronId)
+        public async Task<Patron> FindBy(PatronId patronId)
         {
-            throw new NotImplementedException();
+            var patronEntry = await FindByPatronId(patronId);
+
+            return Map(patronEntry);
         }
 
         private async Task<PatronDatabaseEntity> FindByPatronId(PatronId patronId)
         {
-            PatronDatabaseEntity patronEntry = default;
-
-            var connection = _sqlConnectionFactory.GetOpenConnection();
-
-            return (await connection.QueryAsync<PatronDatabaseEntity, HoldDatabaseEntity, PatronDatabaseEntity>(
-                "SELECT " +
-                $"[Patron].[Id] AS [{nameof(PatronDatabaseEntity.Id)}], " +
-                $"[Patron].[PatronId] AS [{nameof(PatronDatabaseEntity.PatronId)}], " +
-                $"[Patron].[PatronType] AS [{nameof(PatronDatabaseEntity.PatronType)}] " +
-                $"FROM {nameof(PatronDatabaseEntity)} AS [Patron] " +
-                $"INNER JOIN ON {nameof(HoldDatabaseEntity)} AS [Hold] ON [Patron].[PatronId] = [Hold].[PatronId] " +
-                "WHERE [Patron].[PatronId] = @PatronId",
-                (patron, hold) =>
-                {
-                    patronEntry ??= patron;
-                    patronEntry.BooksOnHold.Add(hold);
-
-                    return patronEntry;
-                },
-                new
-                {
-                    PatronId = patronId.Id
-                })).FirstOrDefault();
+            return await _patronsDbContext.Patrons.FirstOrDefaultAsync(x => x.PatronId == patronId.Id);
         }
 
-        public Patron Publish(IPatronEvent @event)
+        public async Task<Patron> Publish(IPatronEvent @event)
         {
-            throw new NotImplementedException();
+            var patron = await HandleNextEvent(@event);
+
+            _domainEvents.Publish(@event.Normalize());
+
+            return patron;
+        }
+
+        private async Task<Patron> HandleNextEvent(IPatronEvent @event)
+        {
+            var entity = await FindByPatronId(@event.PatronId);
+            entity = entity.Handle(@event);
+            await Save();
+
+            return Map(entity);
+        }
+
+        private async Task Save()
+        {
+            await _patronsDbContext.SaveChangesAsync();
         }
     }
 }

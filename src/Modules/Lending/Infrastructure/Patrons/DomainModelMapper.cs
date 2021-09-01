@@ -4,7 +4,7 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 {
     public class DomainModelMapper
     {
-        public Patron Map(PatronDatabaseEntity entity)
+        public static Patron Map(PatronDatabaseEntity entity)
         {
             return PatronFactory.Create(entity.PatronType, new PatronId(entity.PatronId));
         }

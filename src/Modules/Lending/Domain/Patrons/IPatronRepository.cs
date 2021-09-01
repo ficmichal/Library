@@ -1,11 +1,12 @@
 ﻿using Library.Modules.Lending.Domain.Patrons.DomainEvents;
+using System.Threading.Tasks;
 
 namespace Library.Modules.Lending.Domain.Patrons
 {
     public interface IPatronRepository
     {
-        Patron FindBy(PatronId patronId);
+        Task<Patron> FindBy(PatronId patronId);
 
-        Patron Publish(IPatronEvent @event);
+        Task<Patron> Publish(IPatronEvent @event);
     }
 }

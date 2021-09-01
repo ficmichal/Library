@@ -15,6 +15,15 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 
         public ICollection<HoldDatabaseEntity> BooksOnHold { get; set; } = new List<HoldDatabaseEntity>();
 
+        public PatronDatabaseEntity Handle(IPatronEvent @event)
+        {
+            return @event switch
+            {
+                BookPlacedOnHoldEvents bookPlacedOnHoldEvents => PlaceOnHold(bookPlacedOnHoldEvents),
+                BookPlacedOnHold bookPlacedOnHold => PlaceOnHold(bookPlacedOnHold)
+            };
+        }
+
         public PatronDatabaseEntity PlaceOnHold(BookPlacedOnHoldEvents events)
         {
             return PlaceOnHold(events.BookPlacedOnHold);
