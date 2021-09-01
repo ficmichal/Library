@@ -10,3 +10,4 @@ namespace Library.BuildingBlocks.Infrastructure.Events
         public ChannelReader<IDomainEvent> Reader => _messages.Reader;
         public ChannelWriter<IDomainEvent> Writer => _messages.Writer;
     }
+}
