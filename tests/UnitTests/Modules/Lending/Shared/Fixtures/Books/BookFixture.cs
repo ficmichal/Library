@@ -4,7 +4,7 @@ using Library.Modules.Lending.Domain.Patrons;
 using System;
 using Version = Library.BuildingBlocks.Domain.Version;
 
-namespace Library.Modules.Lending.Domain.UnitTests.Books
+namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Books
 {
     public class BookFixture
     {
