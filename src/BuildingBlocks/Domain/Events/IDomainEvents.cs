@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Library.BuildingBlocks.Domain.Events
 {
     public interface IDomainEvents
     {
-        void Publish(IDomainEvent @event);
+        Task Publish(IDomainEvent @event);
 
-        void Publish(IEnumerable<IDomainEvent> events)
+        async Task Publish(IEnumerable<IDomainEvent> events)
         {
             foreach (var domainEvent in events)
             {
-                Publish(domainEvent);
+                await Publish(domainEvent);
             }
         }
     }
