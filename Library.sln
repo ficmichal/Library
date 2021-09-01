@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{09ED0D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lending", "Lending", "{FFA0D2C6-5435-4B70-B7D1-91ACFD2D5992}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.Domain.UnitTests", "tests\UnitTests\Modules\Lending\Domain\Library.Modules.Lending.Domain.UnitTests\Library.Modules.Lending.Domain.UnitTests.csproj", "{1344B9F1-754A-45F1-A71E-1C1FB24CC87B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.Domain.UnitTests", "tests\UnitTests\Modules\Lending\Domain\Library.Modules.Lending.Domain.UnitTests.csproj", "{1344B9F1-754A-45F1-A71E-1C1FB24CC87B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.Infrastructure", "src\Modules\Lending\Infrastructure\Library.Modules.Lending.Infrastructure.csproj", "{13291DA8-7B90-43AA-BE6E-44406DBCA1C2}"
 EndProject

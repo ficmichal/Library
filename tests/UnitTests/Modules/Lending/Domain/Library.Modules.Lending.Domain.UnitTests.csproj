@@ -21,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\src\Modules\Lending\Domain\Library.Modules.Lending.Domain.csproj" />
-    <ProjectReference Include="..\..\Shared\Fixtures\Library.Modules.Lending.UnitTests.Shared.Fixtures.csproj" />
+    <ProjectReference Include="..\Shared\Fixtures\Library.Modules.Lending.UnitTests.Shared.Fixtures.csproj" />
   </ItemGroup>
 
 </Project>
