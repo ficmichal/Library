@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Library.Modules.Lending.UnitTests.Shared.Fixtures.Books;
 using System;
 using Xunit;
 

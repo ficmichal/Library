@@ -1,7 +1,7 @@
 ﻿using Library.Modules.Lending.Domain.Books;
 using Library.Modules.Lending.Domain.LibraryBranch;
 using Library.Modules.Lending.Domain.Patrons;
-using Library.Modules.Lending.Domain.Patrons.Events;
+using Library.Modules.Lending.Domain.Patrons.DomainEvents;
 using Library.Modules.Lending.Domain.Patrons.Hold;
 using System;
 
