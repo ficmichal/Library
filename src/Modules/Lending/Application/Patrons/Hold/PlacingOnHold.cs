@@ -25,13 +25,23 @@ namespace Library.Modules.Lending.Application.Patrons.Hold
             var patron = await FindPatron(command.PatronId);
             var result = patron.PlaceOnHold(availableBook, command.GetHoldDuration());
 
-            return await PublishEvents(result);
+            return result switch
+            {
+                BookHoldFailed bookHoldFailed => await PublishEvents(bookHoldFailed),
+                BookPlacedOnHoldEvents bookPlacedOnHoldEvents => await PublishEvents(bookPlacedOnHoldEvents),
+            };
         }
 
-        private async Task<Result> PublishEvents(IPatronEvent @event)
+        private async Task<Result> PublishEvents(BookPlacedOnHoldEvents @event)
         {
             await _patronRepository.Publish(@event);
             return Result.Success;
+        }
+
+        private async Task<Result> PublishEvents(BookHoldFailed @event)
+        {
+            await _patronRepository.Publish(@event);
+            return Result.Rejection;
         }
 
         private async Task<AvailableBook> FindAvailableBook(BookId id)

@@ -1,5 +1,6 @@
 ﻿using Library.Modules.Lending.Domain.Books;
 using Library.Modules.Lending.Domain.LibraryBranch;
+using Library.Modules.Lending.Domain.Patrons.Policies;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,8 @@ namespace Library.Modules.Lending.Domain.Patrons
                 new PatronInformation(patronId, patronType),
                 new PatronHolds(patronHolds
                     .Select(hold => new Hold.Hold(hold.Item1, hold.Item2))
-                    .ToHashSet()));
+                    .ToHashSet()),
+                new List<IPlacingOnHoldPolicy>{new MaximumNumberOfHoldsPolicy()});
         }
     }
 }
