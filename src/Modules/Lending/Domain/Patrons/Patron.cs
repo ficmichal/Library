@@ -25,7 +25,7 @@ namespace Library.Modules.Lending.Domain.Patrons
             return PlaceOnHold(book, HoldDuration.OpenEnded());
         }
 
-        private IPatronEvent PlaceOnHold(AvailableBook book, HoldDuration holdDuration)
+        public IPatronEvent PlaceOnHold(AvailableBook book, HoldDuration holdDuration)
         {
             var bookPlacedOnHold = BookPlacedOnHoldNow(PatronInformation.PatronId, book.Id, book.Type,
                 book.LibraryBranchId, holdDuration);
