@@ -33,6 +33,8 @@ namespace Library.Modules.Lending.Domain.Patrons
             return Events(bookPlacedOnHold);
         }
 
+        public int NumberOfHolds() => PatronHolds.Count;
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return PatronInformation;
