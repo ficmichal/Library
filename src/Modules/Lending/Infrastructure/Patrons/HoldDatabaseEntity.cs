@@ -12,6 +12,8 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 
         public Guid LibraryBranchId { get; set; }
 
+        public int PatronDatabaseEntity { get; set; }
+
         public DateTime? Till { get; set; }
 
         public HoldDatabaseEntity(Guid bookId, Guid patronId, Guid libraryBranchId, DateTime? till)
