@@ -79,8 +79,8 @@ namespace Library.Modules.Lending.Infrastructure.Books
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var sql = $"UPDATE {nameof(BookDatabaseEntity)} SET " +
-                      $"[{nameof(BookDatabaseEntity.BookState)}] = @BookState " +
-                      $"[{nameof(BookDatabaseEntity.AvailableAtBranch)}] = @AvailableAtBranch " +
+                      $"[{nameof(BookDatabaseEntity.BookState)}] = @BookState, " +
+                      $"[{nameof(BookDatabaseEntity.AvailableAtBranch)}] = @AvailableAtBranch, " +
                       $"[{nameof(BookDatabaseEntity.Version)}] = @Version " +
                       $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @Version";
 
@@ -99,10 +99,10 @@ namespace Library.Modules.Lending.Infrastructure.Books
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var sql = $"UPDATE {nameof(BookDatabaseEntity)} SET " +
-                      $"[{nameof(BookDatabaseEntity.BookState)}] = @BookState " +
-                      $"[{nameof(BookDatabaseEntity.OnHoldAtBranch)}] = @OnHoldAtBranch " +
-                      $"[{nameof(BookDatabaseEntity.OnHoldByPatron)}] = @OnHoldByPatron " +
-                      $"[{nameof(BookDatabaseEntity.OnHoldTill)}] = @OnHoldTill " +
+                      $"[{nameof(BookDatabaseEntity.BookState)}] = @BookState, " +
+                      $"[{nameof(BookDatabaseEntity.OnHoldAtBranch)}] = @OnHoldAtBranch, " +
+                      $"[{nameof(BookDatabaseEntity.OnHoldByPatron)}] = @OnHoldByPatron, " +
+                      $"[{nameof(BookDatabaseEntity.OnHoldTill)}] = @OnHoldTill, " +
                       $"[{nameof(BookDatabaseEntity.Version)}] = @Version " +
                       $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @Version";
 
