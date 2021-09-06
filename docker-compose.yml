@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+            
+  db:
+    build: ./db/
+    ports:
+      - 1445:1433
+    networks:
+      - library-network
+      
+  migrator:
+    container_name: db_migrator
+    build:
+      context: ./db/
+      dockerfile: Dockerfile_DatabaseMigrator
+    networks:
+      - library-network
+    environment:
+      - ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString=Server=db,1433;Database=Library;User=sa;Password=Test@12345
+    command: ["./wait-for-it.sh", "db:1433", "--timeout=60", "--", "/bin/bash", "/entrypoint_DatabaseMigrator.sh"]
+    restart: on-failure
+
+ 
+networks:
+  library-network:
