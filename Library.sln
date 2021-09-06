@@ -59,7 +59,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.App
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3D3D5EE1-B956-41D0-B509-504D3852D0E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Modules.Lending.Application.UnitTests", "tests\UnitTests\Modules\Lending\Application\Library.Modules.Lending.Application.UnitTests.csproj", "{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.Application.UnitTests", "tests\UnitTests\Modules\Lending\Application\Library.Modules.Lending.Application.UnitTests.csproj", "{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{8F2EDCFF-4232-4BFB-AA6A-7600CE6176D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{6B60FCD6-51F6-45B4-844A-BA1A17A1F1FF}"
+	ProjectSection(SolutionItems) = preProject
+		db\scripts\CreateDatabase.sql = db\scripts\CreateDatabase.sql
+		db\scripts\CreateStructure.sql = db\scripts\CreateStructure.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrations", "migrations", "{97DA5819-E3DA-43B0-81F1-DFD45EFE1E5C}"
+	ProjectSection(SolutionItems) = preProject
+		db\migrations\CreateStructure.sql = db\migrations\CreateStructure.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrator", "db\DatabaseMigrator\DatabaseMigrator.csproj", "{62597E53-B1BA-44A2-8A86-E0D965237F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +122,10 @@ Global
 		{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62597E53-B1BA-44A2-8A86-E0D965237F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62597E53-B1BA-44A2-8A86-E0D965237F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62597E53-B1BA-44A2-8A86-E0D965237F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62597E53-B1BA-44A2-8A86-E0D965237F18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +158,9 @@ Global
 		{BDB2205D-0240-403D-ACB1-62FBDDF39D2D} = {566B96C3-7151-439E-812C-428B1C48117F}
 		{3D3D5EE1-B956-41D0-B509-504D3852D0E1} = {FFA0D2C6-5435-4B70-B7D1-91ACFD2D5992}
 		{6A3CC4EA-8C2B-435E-8BDA-7E99CDC089A6} = {3D3D5EE1-B956-41D0-B509-504D3852D0E1}
+		{6B60FCD6-51F6-45B4-844A-BA1A17A1F1FF} = {8F2EDCFF-4232-4BFB-AA6A-7600CE6176D3}
+		{97DA5819-E3DA-43B0-81F1-DFD45EFE1E5C} = {6B60FCD6-51F6-45B4-844A-BA1A17A1F1FF}
+		{62597E53-B1BA-44A2-8A86-E0D965237F18} = {8F2EDCFF-4232-4BFB-AA6A-7600CE6176D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4DB56A1-190C-4896-A0CA-528A48741515}
