@@ -4,7 +4,19 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 {
     public class PatronsDbContext : DbContext
     {
+        private readonly string _connectionString;
+
+        public PatronsDbContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public DbSet<PatronDatabaseEntity> Patrons { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +40,7 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 
                     books.Property(x => x.Till);
 
-                    books.WithOwner().HasForeignKey(x => x.PatronId);
+                    books.WithOwner().HasForeignKey(x => x.PatronDatabaseEntity);
                 });
         }
     }
