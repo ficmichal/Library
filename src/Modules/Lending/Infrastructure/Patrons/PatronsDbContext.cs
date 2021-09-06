@@ -29,7 +29,7 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
             modelBuilder.Entity<PatronDatabaseEntity>()
                 .Property(x => x.PatronType);
 
-            modelBuilder.Entity<PatronDatabaseEntity>()
+            var patronEntityConfig = modelBuilder.Entity<PatronDatabaseEntity>()
                 .OwnsMany(x => x.BooksOnHold, books =>
                 {
                     books.HasKey(x => x.Id);
@@ -41,7 +41,11 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
                     books.Property(x => x.Till);
 
                     books.WithOwner().HasForeignKey(x => x.PatronDatabaseEntity);
+
+                    books.ToTable($"{nameof(HoldDatabaseEntity)}");
                 });
+
+            patronEntityConfig.ToTable($"{nameof(PatronDatabaseEntity)}");
         }
     }
 }

@@ -43,6 +43,12 @@ namespace Library.Modules.Lending.Domain.Patrons
             var bookPlacedOnHold = BookPlacedOnHoldNow(PatronInformation.PatronId, book.Id, book.Type,
                 book.LibraryBranchId, holdDuration);
 
+            if (PatronHolds.MaximumHoldsAfterHolding())
+            {
+                return Events(bookPlacedOnHold,
+                    MaximumNumberOhHoldsReached.Now(PatronInformation, PatronHolds.MaximumNumberOfHolds));
+            }
+
             return Events(bookPlacedOnHold);
         }
 

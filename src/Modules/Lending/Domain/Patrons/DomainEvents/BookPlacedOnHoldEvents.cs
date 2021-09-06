@@ -14,21 +14,35 @@ namespace Library.Modules.Lending.Domain.Patrons.DomainEvents
 
         public DateTime When => BookPlacedOnHold.When;
 
+        public MaximumNumberOhHoldsReached MaximumNumberOhHoldsReached { get; }
+
         public static BookPlacedOnHoldEvents Events(BookPlacedOnHold bookPlacedOnHold)
         {
             return new(bookPlacedOnHold.PatronIdValue, bookPlacedOnHold);
         }
 
-        public List<IDomainEvent> Normalize()
+        public static BookPlacedOnHoldEvents Events(BookPlacedOnHold bookPlacedOnHold, MaximumNumberOhHoldsReached maximumNumberOhHoldsReached)
         {
-            return new() {BookPlacedOnHold};
+            return new(bookPlacedOnHold.PatronIdValue, bookPlacedOnHold, maximumNumberOhHoldsReached);
         }
 
-        private BookPlacedOnHoldEvents(Guid patronIdValue, BookPlacedOnHold bookPlacedOnHold)
+        public List<IDomainEvent> Normalize()
+        {
+            var events = new List<IDomainEvent> {BookPlacedOnHold};
+            if (MaximumNumberOhHoldsReached is {})
+            {
+                events.Add(MaximumNumberOhHoldsReached);
+            }
+
+            return events;
+        }
+
+        private BookPlacedOnHoldEvents(Guid patronIdValue, BookPlacedOnHold bookPlacedOnHold,
+            MaximumNumberOhHoldsReached maximumNumberOhHoldsReached = null)
         {
             PatronIdValue = patronIdValue;
             BookPlacedOnHold = bookPlacedOnHold;
+            MaximumNumberOhHoldsReached = maximumNumberOhHoldsReached;
         }
-
     }
 }

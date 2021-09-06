@@ -14,5 +14,10 @@ namespace Library.Modules.Lending.Domain.Patrons
         }
 
         public int Count => _resourcesOnHold.Count;
+
+        public bool MaximumHoldsAfterHolding()
+        {
+            return Count + 1 == MaximumNumberOfHolds;
+        }
     }
 }
