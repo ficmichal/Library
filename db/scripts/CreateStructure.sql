@@ -23,7 +23,7 @@ CREATE TABLE BookDatabaseEntity (
   OnHoldByPatron UNIQUEIDENTIFIER,
   CheckedOutAtBranch UNIQUEIDENTIFIER,
   CheckedOutByPatron UNIQUEIDENTIFIER,
-  OnHoldTill TIMESTAMP,
+  OnHoldTill DATETIME,
   Version INTEGER);
   
 CREATE SEQUENCE BookDatabaseEntitySeq;
@@ -37,5 +37,5 @@ CREATE TABLE HoldDatabaseEntity (
   PatronId UNIQUEIDENTIFIER NOT NULL,
   LibraryBranchId UNIQUEIDENTIFIER NOT NULL,
   PatronDatabaseEntity INTEGER NOT NULL,
-  Till TIMESTAMP NOT NULL,
+  Till DATETIME NOT NULL,
   CONSTRAINT [FK_HoldDatabaseEntity_PatronDatabaseEntity] FOREIGN KEY (PatronDatabaseEntity) REFERENCES PatronDatabaseEntity ([Id]));

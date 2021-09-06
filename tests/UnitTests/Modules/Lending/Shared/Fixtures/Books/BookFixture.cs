@@ -21,5 +21,15 @@ namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Books
         {
             return new(AnyBookId, BookType.Circulating, Version0, AnyBranchId);
         }
+
+        public static AvailableBook CirculatingAvailableBookAt(LibraryBranchId libraryBranchId)
+        {
+            return new(AnyBookId, BookType.Circulating, Version0, libraryBranchId);
+        }
+
+        public static AvailableBook CirculatingAvailableBookAt(BookId bookId, LibraryBranchId libraryBranchId)
+        {
+            return new(bookId, BookType.Circulating, Version0, libraryBranchId);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Library.Modules.Lending.Infrastructure.Books
 
         public async Task<IBook> FindBy(BookId id)
         {
-            return (await FindBookById(id)).ToDomainModel();
+            return (await FindBookById(id))?.ToDomainModel();
         }
 
         private async Task<BookDatabaseEntity> FindBookById(BookId bookId)
@@ -53,6 +53,7 @@ namespace Library.Modules.Lending.Infrastructure.Books
             if (dbBook is null)
             {
                 await InsertNew(book);
+                return;
             }
 
             await UpdateOptimistically(book);
@@ -143,17 +144,18 @@ namespace Library.Modules.Lending.Infrastructure.Books
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            var sql = $"INSERT INTO {nameof(BookDatabaseEntity)}" +
+            var sql = $"SET IDENTITY_INSERT {nameof(BookDatabaseEntity)} ON; " +
+                      $"INSERT INTO {nameof(BookDatabaseEntity)}" +
                                $"([{nameof(BookDatabaseEntity.Id)}]," +
-                               $" [{nameof(BookDatabaseEntity.BookId)}," +
-                               $" [{nameof(BookDatabaseEntity.BookType)}," +
-                               $" [{nameof(BookDatabaseEntity.BookState)}," +
-                               $" [{nameof(BookDatabaseEntity.AvailableAtBranch)}," +
-                               $" [{nameof(BookDatabaseEntity.OnHoldAtBranch)}," +
-                               $" [{nameof(BookDatabaseEntity.OnHoldByPatron)}," +
-                               $" [{nameof(BookDatabaseEntity.OnHoldTill)}," +
-                               $" [{nameof(BookDatabaseEntity.Version)}) VALUES " +
-                               "(NEXT VALUE FOR BookDatabaseEntitySequence," +
+                               $" [{nameof(BookDatabaseEntity.BookId)}]," +
+                               $" [{nameof(BookDatabaseEntity.BookType)}]," +
+                               $" [{nameof(BookDatabaseEntity.BookState)}]," +
+                               $" [{nameof(BookDatabaseEntity.AvailableAtBranch)}]," +
+                               $" [{nameof(BookDatabaseEntity.OnHoldAtBranch)}]," +
+                               $" [{nameof(BookDatabaseEntity.OnHoldByPatron)}]," +
+                               $" [{nameof(BookDatabaseEntity.OnHoldTill)}]," +
+                               $" [{nameof(BookDatabaseEntity.Version)}]) VALUES " +
+                               "(NEXT VALUE FOR BookDatabaseEntitySeq," +
                                " @BookId," +
                                " @BookType," +
                                " @BookState," +
@@ -161,12 +163,13 @@ namespace Library.Modules.Lending.Infrastructure.Books
                                " @OnHoldAtBranch," +
                                " @OnHoldByPatron," +
                                " @OnHoldTill," +
-                               " @Version)";
+                               " @Version); " +
+                      $"SET IDENTITY_INSERT {nameof(BookDatabaseEntity)} OFF;";
 
             return await connection.ExecuteAsync(sql,
                 new
                 {
-                    BookId = bookId,
+                    BookId = bookId.Id,
                     BookType = bookType,
                     BookState = bookState,
                     AvailableAtBranch = availableAt,
