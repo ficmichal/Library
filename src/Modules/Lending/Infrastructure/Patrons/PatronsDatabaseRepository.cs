@@ -32,11 +32,27 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 
         public async Task<Patron> Publish(IPatronEvent @event)
         {
-            var patron = await HandleNextEvent(@event);
+            Patron patron = @event switch
+            {
+                PatronCreated patronCreated => await CreateNewPatron(patronCreated),
+                _ => await HandleNextEvent(@event)
+            };
 
             await _domainEvents.Publish(@event.Normalize());
 
             return patron;
+        }
+
+        private async Task<Patron> CreateNewPatron(PatronCreated @event)
+        {
+            var patron = _patronsDbContext.Patrons.Add(new PatronDatabaseEntity
+            {
+                PatronId = @event.PatronIdValue,
+                PatronType = @event.PatronType
+            });
+            await Save();
+
+            return Map(patron.Entity);
         }
 
         private async Task<Patron> HandleNextEvent(IPatronEvent @event)
