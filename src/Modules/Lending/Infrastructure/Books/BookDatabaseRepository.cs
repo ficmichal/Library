@@ -82,13 +82,14 @@ namespace Library.Modules.Lending.Infrastructure.Books
                       $"[{nameof(BookDatabaseEntity.BookState)}] = @BookState, " +
                       $"[{nameof(BookDatabaseEntity.AvailableAtBranch)}] = @AvailableAtBranch, " +
                       $"[{nameof(BookDatabaseEntity.Version)}] = @Version " +
-                      $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @Version";
+                      $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @OldVersion";
 
             return await connection.ExecuteAsync(sql,
                 new
                 {
                     BookState = BookState.Available,
                     AvailableAtBranch = book.LibraryBranchId.Id,
+                    OldVersion = book.Version.Value,
                     Version = book.Version.Value + 1,
                     BookId = book.Id.Id
                 });
@@ -104,7 +105,7 @@ namespace Library.Modules.Lending.Infrastructure.Books
                       $"[{nameof(BookDatabaseEntity.OnHoldByPatron)}] = @OnHoldByPatron, " +
                       $"[{nameof(BookDatabaseEntity.OnHoldTill)}] = @OnHoldTill, " +
                       $"[{nameof(BookDatabaseEntity.Version)}] = @Version " +
-                      $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @Version";
+                      $"WHERE [{nameof(BookDatabaseEntity.BookId)}] = @BookId AND [{nameof(BookDatabaseEntity.Version)}] = @OldVersion";
 
             return await connection.ExecuteAsync(sql,
                 new
@@ -113,6 +114,7 @@ namespace Library.Modules.Lending.Infrastructure.Books
                     OnHoldAtBranch = book.HoldPlacedAt.Id,
                     OnHoldByPatron = book.ByPatron.Id,
                     OnHoldTill = book.HoldTill,
+                    OldVersion = book.Version.Value,
                     Version = book.Version.Value + 1,
                     BookId = book.Id.Id
                 });
