@@ -6,16 +6,18 @@ namespace Library.BuildingBlocks.Infrastructure.Events
 {
     public class JustForwardDomainEventPublisher : IDomainEvents
     {
-        private readonly IEventDispatcher _eventDispatcher;
+        private readonly IAsynchronousDispatcher _asynchronousDispatcher;
 
-        public JustForwardDomainEventPublisher(IEventDispatcher eventDispatcher)
+        public JustForwardDomainEventPublisher(IAsynchronousDispatcher asynchronousDispatcher)
         {
-            _eventDispatcher = eventDispatcher;
+            _asynchronousDispatcher = asynchronousDispatcher;
         }
 
-        public async Task Publish(IDomainEvent @event)
+        public async Task Publish<TEvent>(TEvent @event) where TEvent : class, IDomainEvent
         {
-            await _eventDispatcher.PublishAsync(@event);
+            if (@event is null) return;
+
+            await _asynchronousDispatcher.PublishAsync(@event);
         }
     }
 }
