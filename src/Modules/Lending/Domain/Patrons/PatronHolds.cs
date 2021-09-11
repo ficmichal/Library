@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Library.Modules.Lending.Domain.Books.Types;
+using System.Collections.Generic;
 
 namespace Library.Modules.Lending.Domain.Patrons
 {
@@ -18,6 +19,13 @@ namespace Library.Modules.Lending.Domain.Patrons
         public bool MaximumHoldsAfterHolding()
         {
             return Count + 1 == MaximumNumberOfHolds;
+        }
+
+        public bool A(BookOnHold bookOnHold)
+        {
+            var hold = new Hold.Hold(bookOnHold.Id, bookOnHold.HoldPlacedAt);
+
+            return _resourcesOnHold.Contains(hold);
         }
     }
 }

@@ -13,10 +13,10 @@ namespace Library.Modules.Lending.Domain.Patrons.DomainEvents
         {
             return new(patronInformation.PatronId.Id, numberOfHolds);
         }
-
+        
         private MaximumNumberOhHoldsReached(Guid patronIdValue, int numberOfHolds)
         {
-            When = DateTime.Now; ;
+            When = DateTime.Now;
             PatronIdValue = patronIdValue;
             NumberOfHolds = numberOfHolds;
         }

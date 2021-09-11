@@ -36,7 +36,7 @@ namespace Library.Modules.Lending.Domain.Patrons.DomainEvents
 
             return events;
         }
-
+        
         private BookPlacedOnHoldEvents(Guid patronIdValue, BookPlacedOnHold bookPlacedOnHold,
             MaximumNumberOhHoldsReached maximumNumberOhHoldsReached = null)
         {

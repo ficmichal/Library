@@ -6,6 +6,8 @@ using Library.Modules.Lending.Domain.Patrons.Hold;
 using Library.Modules.Lending.Domain.Patrons.Policies;
 using System.Collections.Generic;
 using System.Linq;
+using static Library.Modules.Lending.Domain.Patrons.DomainEvents.BookHoldCanceled;
+using static Library.Modules.Lending.Domain.Patrons.DomainEvents.BookHoldCancelingFailed;
 using static Library.Modules.Lending.Domain.Patrons.DomainEvents.BookHoldFailed;
 using static Library.Modules.Lending.Domain.Patrons.DomainEvents.BookPlacedOnHold;
 using static Library.Modules.Lending.Domain.Patrons.DomainEvents.BookPlacedOnHoldEvents;
@@ -50,6 +52,16 @@ namespace Library.Modules.Lending.Domain.Patrons
             }
 
             return Events(bookPlacedOnHold);
+        }
+
+        public IPatronEvent CancelHold(BookOnHold book)
+        {
+            if (PatronHolds.A(book))
+            {
+                return HoldCanceledNow(book.Id, book.HoldPlacedAt, PatronInformation.PatronId);
+            }
+
+            return HoldCancelingFailedNow(book.Id, book.HoldPlacedAt, PatronInformation.PatronId);
         }
 
         public int NumberOfHolds() => PatronHolds.Count;

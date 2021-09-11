@@ -2,6 +2,7 @@
 using Library.Modules.Lending.Domain.Books;
 using Library.Modules.Lending.Domain.LibraryBranch;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Library.Modules.Lending.Domain.Patrons.DomainEvents
 {
@@ -24,6 +25,7 @@ namespace Library.Modules.Lending.Domain.Patrons.DomainEvents
                 libraryBranchId.Id);
         }
 
+        [JsonConstructor]
         private BookHoldFailed(string reason, Guid patronId, Guid bookId, Guid libraryBranchId)
         {
             Reason = reason;
