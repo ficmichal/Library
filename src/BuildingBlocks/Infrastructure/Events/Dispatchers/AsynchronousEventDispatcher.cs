@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Library.BuildingBlocks.Infrastructure.Events.Dispatchers
 {
-    public class AsynchronousEventDispatcher : IEventDispatcher
+    public class AsynchronousEventDispatcher : IAsynchronousDispatcher
     {
         private readonly IEventChannel _eventChannel;
 

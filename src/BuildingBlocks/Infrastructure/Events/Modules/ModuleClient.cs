@@ -24,14 +24,10 @@ namespace Library.BuildingBlocks.Infrastructure.Events.Modules
             foreach (var registration in registrations)
             {
                 var handle = registration.Handle;
-                var translatedMessage = TranslateType(message, registration.TargetType);
-                tasks.Add(handle(translatedMessage));
+                tasks.Add(handle(message));
             }
 
             await Task.WhenAll(tasks);
         }
-
-        public static object TranslateType(object @object, Type targetType)
-            => JsonSerializer.Deserialize(JsonSerializer.Serialize(@object), targetType);
     }
 }

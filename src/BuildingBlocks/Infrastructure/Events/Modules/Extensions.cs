@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.BuildingBlocks.Infrastructure.Events.Modules
 {
-    internal static class Extensions
+    public static class Extensions
     {
         public static IServiceCollection AddModuleRequests(this IServiceCollection services)
         {
