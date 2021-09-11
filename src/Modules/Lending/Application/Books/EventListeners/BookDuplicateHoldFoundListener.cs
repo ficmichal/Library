@@ -1,14 +1,10 @@
-﻿using Library.BuildingBlocks.Domain.Commands;
+﻿using System;
+using System.Threading.Tasks;
 using Library.BuildingBlocks.Infrastructure.Events;
 using Library.Modules.Lending.Application.Patrons.Hold;
 using Library.Modules.Lending.Domain.Books;
 using Library.Modules.Lending.Domain.Books.DomainEvents;
 using Library.Modules.Lending.Domain.Patrons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Modules.Lending.Application.Books.EventListeners
 {
@@ -21,9 +17,9 @@ namespace Library.Modules.Lending.Application.Books.EventListeners
             _cancelingHold = cancelingHold;
         }
 
-        public async Task<Result> HandleAsync(BookDuplicateHoldFound @event)
+        public async Task HandleAsync(BookDuplicateHoldFound @event)
         {
-            return await _cancelingHold.CancelHold(CancelHoldCommandFrom(@event));
+            _ =  await _cancelingHold.CancelHold(CancelHoldCommandFrom(@event));
         }
 
         private CancelHoldCommand CancelHoldCommandFrom(BookDuplicateHoldFound @event)
