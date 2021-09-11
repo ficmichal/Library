@@ -23,5 +23,10 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
             LibraryBranchId = libraryBranchId;
             Till = till;
         }
+
+        public bool Is(Guid bookId, Guid patronId, Guid libraryBranchId)
+        {
+            return BookId.Equals(bookId) && PatronId.Equals(patronId) && LibraryBranchId.Equals(libraryBranchId);
+        }
     }
 }

@@ -82,7 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "Integra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lending", "Lending", "{9A2EE850-C753-4C96-B102-5B893870559F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Modules.Lending.IntegrationTests", "tests\IntegrationTests\Modules\Lending\Library.Modules.Lending.IntegrationTests.csproj", "{6F5C0A59-1462-4D51-9019-9795FCAA560D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Modules.Lending.IntegrationTests", "tests\IntegrationTests\Modules\Lending\Library.Modules.Lending.IntegrationTests.csproj", "{6F5C0A59-1462-4D51-9019-9795FCAA560D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

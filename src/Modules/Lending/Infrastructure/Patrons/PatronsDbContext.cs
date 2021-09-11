@@ -11,11 +11,15 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
             _connectionString = connectionString;
         }
 
+        public PatronsDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<PatronDatabaseEntity> Patrons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            //optionsBuilder.UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
