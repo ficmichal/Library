@@ -4,7 +4,7 @@ using System;
 
 namespace Library.Modules.Lending.Application.Patrons.Hold
 {
-    public class CancelHoldCommand
+    public record CancelHoldCommand
     {
         public CancelHoldCommand(DateTime timestamp, PatronId patronId, BookId bookId)
         {

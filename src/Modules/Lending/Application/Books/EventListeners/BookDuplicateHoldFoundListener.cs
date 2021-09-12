@@ -10,11 +10,19 @@ namespace Library.Modules.Lending.Application.Books.EventListeners
 {
     public class BookDuplicateHoldFoundListener : IEventListener<BookDuplicateHoldFound>
     {
-        private readonly CancelingHold _cancelingHold;
+        private readonly ICancelingHold _cancelingHold;
+        private readonly DateTime _dateTime;
 
-        public BookDuplicateHoldFoundListener(CancelingHold cancelingHold)
+        public BookDuplicateHoldFoundListener(ICancelingHold cancelingHold)
         {
             _cancelingHold = cancelingHold;
+            _dateTime = DateTime.Now;
+        }
+
+        public BookDuplicateHoldFoundListener(ICancelingHold cancelingHold, DateTime dateTime)
+        {
+            _cancelingHold = cancelingHold;
+            _dateTime = dateTime;
         }
 
         public async Task HandleAsync(BookDuplicateHoldFound @event)
@@ -24,7 +32,7 @@ namespace Library.Modules.Lending.Application.Books.EventListeners
 
         private CancelHoldCommand CancelHoldCommandFrom(BookDuplicateHoldFound @event)
         {
-            return new CancelHoldCommand(DateTime.Now, new PatronId(@event.SecondPatronId), new BookId(@event.BookId));
+            return new CancelHoldCommand(_dateTime, new PatronId(@event.SecondPatronId), new BookId(@event.BookId));
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Modules.Lending.Application.Patrons.Hold
 {
-    public class CancelingHold
+    public class CancelingHold : ICancelingHold
     {
         private readonly IBookRepository _bookRepository;
         private readonly IPatronRepository _patronRepository;

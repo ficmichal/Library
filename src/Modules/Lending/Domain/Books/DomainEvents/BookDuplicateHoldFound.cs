@@ -13,6 +13,11 @@ namespace Library.Modules.Lending.Domain.Books.DomainEvents
         public Guid LibraryBranchId { get; }
         public Guid BookId { get; }
 
+        public static BookDuplicateHoldFound Create(DateTime @when, Guid firstPatronId, Guid secondPatronId, Guid libraryBranchId, Guid bookId)
+        {
+            return new BookDuplicateHoldFound(@when, firstPatronId, secondPatronId, libraryBranchId, bookId);
+        }
+
         public static BookDuplicateHoldFound Now(Guid firstPatronId, Guid secondPatronId, Guid libraryBranchId, Guid bookId)
         {
             var now = DateTime.Now;
