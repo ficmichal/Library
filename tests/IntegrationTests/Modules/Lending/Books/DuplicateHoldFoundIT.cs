@@ -46,7 +46,7 @@ namespace Library.Modules.Lending.IntegrationTests.Books
             services.AddEventDispatching();
             services.AddModuleRequests();
             services.AddTransient(_ => _bookRepo);
-            services.AddTransient<CancelingHold>();
+            services.AddTransient<ICancelingHold, CancelingHold>();
             services.AddDbContext<PatronsDbContext>(x => x.UseSqlServer(ConnectionString), ServiceLifetime.Transient);
             services.AddSingleton<IPatronRepository, PatronsDatabaseRepository>();
             serviceProvider = services.BuildServiceProvider();

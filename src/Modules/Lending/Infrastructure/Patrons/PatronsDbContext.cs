@@ -19,7 +19,10 @@ namespace Library.Modules.Lending.Infrastructure.Patrons
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(_connectionString);
+            if (_connectionString != null)
+            {
+                optionsBuilder.UseSqlServer(_connectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
