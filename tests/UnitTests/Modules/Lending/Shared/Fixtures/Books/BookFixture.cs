@@ -31,5 +31,10 @@ namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Books
         {
             return new(bookId, BookType.Circulating, Version0, libraryBranchId);
         }
+
+        public static BookOnHold BookOnHold()
+        {
+            return new BookOnHold(AnyBookId, BookType.Circulating, AnyBranchId, AnyPatronId, DateTime.Now, Version0);
+        }
     }
 }

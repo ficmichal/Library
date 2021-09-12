@@ -20,13 +20,16 @@ namespace Library.Modules.Lending.Application.UnitTests.Patrons.Hold
         [Fact]
         public async Task should_start_cancelling_hold_if_book_was_already_hold_by_other_patron()
         {
+            // Given
             var cancelingHold = CancelingHold();
             var duplicateHold = new BookDuplicateHoldFoundListener(cancelingHold, _fixedDate);
             var bookDuplicateHoldFound = DuplicateHoldFoundBy();
             var cancelHoldCommand = CancelHoldCommandFrom(bookDuplicateHoldFound);
 
+            // When
             await duplicateHold.HandleAsync(bookDuplicateHoldFound);
 
+            // Then
             await cancelingHold.Received(1).CancelHold(cancelHoldCommand);
         }
 

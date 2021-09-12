@@ -1,4 +1,5 @@
-﻿using Library.Modules.Lending.Domain.Patrons;
+﻿using Library.Modules.Lending.Domain.Books.Types;
+using Library.Modules.Lending.Domain.Patrons;
 using Library.Modules.Lending.Domain.Patrons.Hold;
 using Library.Modules.Lending.Domain.Patrons.Policies;
 using Library.Modules.Lending.UnitTests.Shared.Fixtures.Books;
@@ -33,6 +34,20 @@ namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Patrons
                 PatronInformation(patronId, PatronType.Regular),
                 BooksOnHold(numberOfHolds),
                 new List<IPlacingOnHoldPolicy> {new MaximumNumberOfHoldsPolicy()});
+        }
+
+        public static Patron RegularPatronWithHold(PatronId patronId, BookOnHold bookOnHold)
+        {
+            return RegularPatronWith(patronId, new Hold(bookOnHold.Id, bookOnHold.HoldPlacedAt));
+        }
+
+        private static Patron RegularPatronWith(PatronId patronId, Hold hold)
+        {
+            var patronHolds = new PatronHolds(new HashSet<Hold> { hold });
+            return new Patron(
+                    new PatronInformation(patronId, PatronType.Regular),
+                    patronHolds,
+                    AllCurrentPolicies.Get());
         }
 
         private static PatronInformation PatronInformation(PatronId patronId, PatronType patronType)
