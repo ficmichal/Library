@@ -26,6 +26,16 @@ namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Patrons
                 Enumerable.Empty<IPlacingOnHoldPolicy>().ToList());
         }
 
+        public static Patron RegularPatronWithPolicy(IPlacingOnHoldPolicy placingOnHoldPolicy)
+        {
+            return PatronWithPolicy(AnyPatronId, PatronType.Regular, placingOnHoldPolicy);
+        }
+
+        public static Patron ResearcherPatronWithPolicy(IPlacingOnHoldPolicy placingOnHoldPolicy)
+        {
+            return PatronWithPolicy(AnyPatronId, PatronType.Researcher, placingOnHoldPolicy);
+        }
+
         public static Patron RegularPatronWithHolds(int numberOfHolds)
         {
             var patronId = AnyPatronId;
@@ -33,12 +43,19 @@ namespace Library.Modules.Lending.UnitTests.Shared.Fixtures.Patrons
             return new Patron(
                 PatronInformation(patronId, PatronType.Regular),
                 BooksOnHold(numberOfHolds),
-                new List<IPlacingOnHoldPolicy> {new MaximumNumberOfHoldsPolicy()});
+                new List<IPlacingOnHoldPolicy> {new RegularPatronMaximumNumberOfHoldsPolicy()});
         }
 
         public static Patron RegularPatronWithHold(PatronId patronId, BookOnHold bookOnHold)
         {
             return RegularPatronWith(patronId, new Hold(bookOnHold.Id, bookOnHold.HoldPlacedAt));
+        }
+
+        private static Patron PatronWithPolicy(PatronId patronId, PatronType patronType,
+            IPlacingOnHoldPolicy placingOnHoldPolicy)
+        {
+            return new(new PatronInformation(patronId, patronType), NoHolds(),
+                new List<IPlacingOnHoldPolicy> {placingOnHoldPolicy});
         }
 
         private static Patron RegularPatronWith(PatronId patronId, Hold hold)
