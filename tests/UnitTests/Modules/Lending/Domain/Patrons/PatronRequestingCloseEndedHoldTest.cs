@@ -19,10 +19,13 @@ namespace Library.Modules.Lending.Domain.UnitTests.Patrons
         [MemberData(nameof(AnyPatrons))]
         public void any_patron_can_request_close_ended_hold(Patron patron)
         {
+            // Given
             var aBook = BookFixture.CirculatingBook();
 
+            // When
             var hold = patron.PlaceOnHold(aBook, HoldDuration.CloseEnded(_min, NumberOfDays.Of(3)));
 
+            // Then
             hold.Should().BeOfType<BookPlacedOnHoldEvents>();
 
             var bookPlacedOnHoldEvents = hold as BookPlacedOnHoldEvents;
@@ -34,6 +37,24 @@ namespace Library.Modules.Lending.Domain.UnitTests.Patrons
             bookPlacedOnHold.HoldFrom.Should().Be(_min);
             bookPlacedOnHold.HoldTill.Should().Be(_min.AddDays(3));
         }
+
+        [Theory]
+        [InlineData(-10)]
+        [InlineData(-1)]
+        [InlineData(0)]
+        public void patron_cannot_hold_a_book_for_0_or_negative_amount_of_days(int days)
+        {
+            // Given
+            var aBook = BookFixture.CirculatingBook();
+            var patron = PatronFixture.RegularPatron();
+
+            // When
+            Func<IPatronEvent> placingOnHold = () => patron.PlaceOnHold(aBook, HoldDuration.CloseEnded(_min, NumberOfDays.Of(days)));
+
+            // Then
+            placingOnHold.Should().Throw<ArgumentException>();
+        }
+
 
         public static IEnumerable<object[]> AnyPatrons =>
             new List<object[]>
