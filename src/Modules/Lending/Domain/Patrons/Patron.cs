@@ -74,6 +74,8 @@ namespace Library.Modules.Lending.Domain.Patrons
                 .FirstOrDefault();
         }
 
+        public bool IsRegular() => PatronInformation.IsRegular();
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return PatronInformation;
