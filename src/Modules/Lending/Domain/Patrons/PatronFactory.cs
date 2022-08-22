@@ -15,7 +15,7 @@ namespace Library.Modules.Lending.Domain.Patrons
                 new PatronHolds(patronHolds
                     .Select(hold => new Hold.Hold(hold.Item1, hold.Item2))
                     .ToHashSet()),
-                new List<IPlacingOnHoldPolicy>{new MaximumNumberOfHoldsPolicy()});
+                new List<IPlacingOnHoldPolicy>{new RegularPatronMaximumNumberOfHoldsPolicy()});
         }
     }
 }

@@ -7,7 +7,8 @@ namespace Library.Modules.Lending.Domain.Patrons.Policies
         public static List<IPlacingOnHoldPolicy> Get()
             => new()
             {
-                new MaximumNumberOfHoldsPolicy()
+                new RegularPatronMaximumNumberOfHoldsPolicy(),
+                new OnlyResearcherPatronsCanPlaceOpenEndedHoldsPolicy(),
             };
     }
 }

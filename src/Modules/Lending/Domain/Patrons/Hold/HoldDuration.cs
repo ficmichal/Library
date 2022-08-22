@@ -12,7 +12,7 @@ namespace Library.Modules.Lending.Domain.Patrons.Hold
 
         private HoldDuration(DateTime @from, DateTime? to)
         {
-            if (to < @from)
+            if (to <= @from)
             {
                 throw new ArgumentException("Duration must be valid");
             }
